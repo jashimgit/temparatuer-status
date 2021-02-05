@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input type="text" id="search-box" class="form-control" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button onclick="searchWeather();" type="button" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="weather-status text-white text-center">
+            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="city-name">Dhaka</h1>
+            <h3><span id="temp">38.06</span>&deg;C</h3>
+            <h1 class="lead">Clouds</h1>
+        </div>
+    </div>
+
+
+
+    <script>
+        function searchWeather() {
+            const searchBox = document.getElementById('search-box').value;
+            // console.log(typeof searchBox);
+            const query =
+                `https://api.openweathermap.org/data/2.5/weather?q=${searchBox}&appid=68682a9edbdf7d8642500d333191ce9d&units=metric`
+            fetch(query)
+                .then(res => res.json())
+                .then(data => getData(data));
+        }
+
+        let cityName = document.getElementById('city-name')
+        let temparature = document.getElementById('temp')
+        let description = document.querySelector('.lead')
+
+        function getData(query) {
+            description.innerText = query.weather[0].description;
+            cityName.innerText = query.name
+
+            temparature.innerText = query.main.temp;
+            // description = description;
+            // return;
+            console.log(query);
+        }
+    </script>
+
+</body>
+
+</html>
