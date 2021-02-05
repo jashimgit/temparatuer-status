@@ -29,7 +29,7 @@
             </div>
         </form>
         <div class="weather-status text-white text-center">
-            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <img id="weatherImg" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
             <h1 id="city-name">city </h1>
             <h3><span id="temp">00.00</span>&deg;C</h3>
             <h1 class="lead">status</h1>
@@ -52,11 +52,16 @@
         let cityName = document.getElementById('city-name')
         let temparature = document.getElementById('temp')
         let description = document.querySelector('.lead')
+        let img = document.getElementById("weatherImg")
+
+
 
         function getData(query) {
+            // console.log(query);
             description.innerText = query.weather[0].description;
             cityName.innerText = query.name
-
+            const icon = query.weather[0].icon
+            img.src = `https://openweathermap.org/img/wn/${icon}.png`;
             temparature.innerText = query.main.temp;
             // description = description;
             // return;
